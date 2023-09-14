@@ -1,4 +1,4 @@
-package login;
+package tool;
 
 import java.io.IOException;
 
@@ -8,24 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns={"/login/LoginServlet"})
+@WebServlet(urlPatterns={"*.action"})
 public class FrontController extends HttpServlet{
 
 	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		
-		String url="login-error.jsp";
-		//String url=null;
-		
-		LoginAction action=new LoginAction();
-		
 		try {
-			url=action.excute(request, response);
+			String path=request.getServletPath().substring(1);
+			String name=path.replace(".a", "A").replace('/', '.');
+			Action action=(Action)Class.forName(name).newInstance();
+			//url=action.excute(request, response);
+			
+			String url=action.excute(request, response);
+			
+			request.getRequestDispatcher(url).forward(request, response);
+			
 		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
