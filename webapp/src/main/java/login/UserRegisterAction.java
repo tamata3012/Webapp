@@ -20,18 +20,22 @@ public class UserRegisterAction extends Action{
 		LoginDAO dao=new LoginDAO();
 		
 		if(name!=null) {
-			if(password!=null) {
-				if(phoneNumber!=null) {
-					
-					int count=dao.register(name, password,phoneNumber);
-					
-					if(count==1) {
-						return "login.jsp";
-					}
-					
-				}
-			}
-		}	
+			
+		}
+		
+		if(password!=null) {
+			
+		}
+		
+		if(phoneNumber!=null) {
+						
+		}
+		
+		int count=dao.register(name, password,phoneNumber);
+		
+		if(count==1) {
+			return "login.jsp";
+		}
 		return "login-register.jsp";
 	}
 
