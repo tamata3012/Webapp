@@ -7,4 +7,4 @@
 <title>login</title>
 </head>
 <body>
-<a href="Logout.action">ログアウト</a>
+<a href="../login/Logout.action">ログアウト</a>

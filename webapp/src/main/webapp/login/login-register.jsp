@@ -7,6 +7,13 @@
 
 	<h2>新規登録</h2>
 	
+	<div style="text-align: :center;color:red;font-weight:bold;">
+	<c:forEach var="message" items="${requestScope.errorMessageList}">
+		<c:out value="${message}" /><br>
+	</c:forEach>
+	</div>
+	
+	下記項目すべてを入力してください。
 	<form action="UserRegister.action" method="post">
 		<div>
 			ユーザー名<input type="text" name="username"><br>

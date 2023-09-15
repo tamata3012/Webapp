@@ -21,7 +21,7 @@ public class LogoutAction extends Action{
 			return "../login/login.jsp";
 		}
 		
-		return "login-error.jsp";
+		return "../login/logout-error.jsp";
 	}
 
 }
