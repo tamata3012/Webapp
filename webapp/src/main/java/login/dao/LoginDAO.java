@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import login.User;
+import tool.DAO;
 
 public class LoginDAO extends DAO{
 

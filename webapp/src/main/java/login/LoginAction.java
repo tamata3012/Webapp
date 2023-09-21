@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import login.dao.LoginDAO;
+import reserve.ProductAction;
 import tool.Action;
 
 public class LoginAction extends Action{
@@ -20,6 +21,8 @@ public class LoginAction extends Action{
 		HttpSession session=request.getSession();
 		
 		String page="login.jsp";
+		
+		ProductAction productAction=new ProductAction();
 		
 		String name=request.getParameter("username");
 		String password=request.getParameter("password");
@@ -42,7 +45,7 @@ public class LoginAction extends Action{
 		
 		if(user!=null) {
 			session.setAttribute("user", user);
-			page= "../reserve/home.jsp";
+			page=productAction.excute(request, response);
 		}else {
 			errorList.add("ユーザー名かパスワードが間違っています。");
 		}

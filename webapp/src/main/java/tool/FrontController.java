@@ -17,7 +17,6 @@ public class FrontController extends HttpServlet{
 			String path=request.getServletPath().substring(1);
 			String name=path.replace(".a", "A").replace('/', '.');
 			Action action=(Action)Class.forName(name).newInstance();
-			//url=action.excute(request, response);
 			
 			String url=action.excute(request, response);
 			
