@@ -38,5 +38,30 @@ public class ProductDAO extends DAO {
 		
 		return productList;
 	}
+		
+	public Product selectById(int id) throws Exception {
+			
+			Product product=new Product();
+			String sql="select * from products where id=?";
+			
+	
+			try(Connection con=getConnection();
+					PreparedStatement stmt =con.prepareStatement(sql)){
+				stmt.setInt(1, id);
+				ResultSet rs=stmt.executeQuery();
+				
+				while(rs.next()) {
+					product.setId(rs.getInt(1));
+					product.setName(rs.getString(2));
+					product.setNumber(rs.getInt(3));
+					product.setLentalNumber(rs.getInt(4));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return product;
+	}
 
 }

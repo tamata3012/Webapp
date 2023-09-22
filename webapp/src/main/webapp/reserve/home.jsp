@@ -19,7 +19,7 @@
 			<td>${product.name}</td>
 			<td>${product.lentalNumber}</td>
 			<td>
-				<form action="Lental.action?id=${product.id}" method="post">
+				<form action="../reserve/Lental.action?id=${product.id}" method="post">
 	              <input type="submit" value="貸出申請">
 	            </form>
             </td>
