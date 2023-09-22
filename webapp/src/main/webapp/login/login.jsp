@@ -7,12 +7,14 @@
 
 	<h2>ログイン画面</h2>
 	
-	<c:out value="${requestScope.message}" /><br>
-	<div style="text-align: :center;color:red;font-weight:bold;">
-	<c:forEach var="message" items="${requestScope.errorMessageList}">
-		<c:out value="${message}" /><br>
-	</c:forEach>
-	</div>
+	<c:if test="${!empty requestScope.message}">
+		<c:out value="${requestScope.message}" /><br>
+		<div style="text-align: :center;color:red;font-weight:bold;">
+		<c:forEach var="message" items="${requestScope.errorMessageList}">
+			<c:out value="${message}" /><br>
+		</c:forEach>
+		</div>
+	</c:if>
 	
 	<a href="login-register.jsp">ユーザー新規登録</a>
 	

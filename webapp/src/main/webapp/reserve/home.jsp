@@ -8,13 +8,21 @@
 
 	<p>ようこそ${user.name}さん。
 	
-	<h2>貸出予約</h2>
-	
+	<h2>貸出品一覧</h2>
+	<form action="../reserve/Product.action" method="post">
+		<input type="text" name="keyword">
+		<input type="submit" value="検索">
+	</form>
 	<table style="border-collapse:separate;border-spacing:10px;">
 	<c:forEach var="product" items="${productList}">
 		<tr>
 			<td>${product.name}</td>
 			<td>${product.lentalNumber}</td>
+			<td>
+				<form action="Lental.action?id=${product.id}" method="post">
+	              <input type="submit" value="貸出申請">
+	            </form>
+            </td>
 		</tr>
 	</c:forEach>
 	</table>

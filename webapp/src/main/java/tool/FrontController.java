@@ -13,7 +13,10 @@ public class FrontController extends HttpServlet{
 
 	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		try {
+			
 			String path=request.getServletPath().substring(1);
 			String name=path.replace(".a", "A").replace('/', '.');
 			Action action=(Action)Class.forName(name).newInstance();
