@@ -63,5 +63,17 @@ public class ProductDAO extends DAO {
 			
 			return product;
 	}
+	
+	public void changeNumber(int id,int lentalnum) throws Exception {
+		
+		String sql="update products set lental_number=lental_number-? where id=?";
+		
 
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){	
+			stmt.setInt(1, lentalnum);
+			stmt.setInt(2, id);
+			stmt.executeUpdate(); 
+		}
+	}
 }

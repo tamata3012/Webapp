@@ -18,11 +18,11 @@
 	
 	<a href="login-register.jsp">ユーザー新規登録</a>
 	
-	<form action="Login.action" method="post">
+	<form action="../login/Login.action" method="post">
 		<div>
 			ユーザー名:<input type="text" name="username"><br>
 			パスワード:<input type="password" name="password"><br>
-			<button type="submit" >ログイン</button>
+			<input type="submit"  value="ログイン">
 		</div>
 	</form>
 	
