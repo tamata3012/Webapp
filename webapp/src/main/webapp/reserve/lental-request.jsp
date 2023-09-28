@@ -9,13 +9,15 @@
 	<p>ようこそ${user.name}さん。
 	
 	<h2>貸出一覧</h2>
+	<h3>申請中</h3>
 	<table style="border-collapse:separate;border-spacing:10px;">
-	<c:forEach var="lental" items="${lentalList}">
+	<c:forEach var="lental" items="${lentalList}" varStatus="status">
 		<tr>
+			<td>${status.count}</td>
 			<td>${lental.productName}</td>
 			<td>${lental.returnDate}</td>
 			<td>
-				<form action="../reserve/Lental.action?id=${product.id}" method="post">
+				<form action="../reserve/Lental.action?id=${lental.id}" method="post">
 	              <input type="submit" value="詳細表示">
 	            </form>
             </td>

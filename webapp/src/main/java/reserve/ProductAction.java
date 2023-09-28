@@ -17,7 +17,7 @@ public class ProductAction extends Action{
 		HttpSession session=request.getSession();
 		
 		if(session.getAttribute("user")==null) {
-			return "../login/login.jsp";
+			return "../login/login-return.jsp";
 		}
 		
 		String keyword=request.getParameter("keyword");

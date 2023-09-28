@@ -37,19 +37,16 @@ public class LoginAction extends Action{
 			errorList.add("パスワードが入力されてません");
 		}
 		
-		if(!errorList.isEmpty()) {
-			request.setAttribute("errorMessageList", errorList);
+		if(errorList.isEmpty()) {
+			User user=dao.search(name, password);
+			if(user!=null) {
+				session.setAttribute("user", user);
+				page=productAction.excute(request, response);
+			}else {
+				errorList.add("ユーザー名かパスワードが間違っています。");
+			}
 		}
-		
-		User user=dao.search(name, password);
-		
-		if(user!=null) {
-			session.setAttribute("user", user);
-			page=productAction.excute(request, response);
-		}else {
-			errorList.add("ユーザー名かパスワードが間違っています。");
-		}
-		
+		request.setAttribute("errorMessageList", errorList);
 		return page;
 	}
 

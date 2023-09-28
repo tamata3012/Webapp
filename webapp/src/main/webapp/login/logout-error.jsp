@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>ログアウトに失敗しました</title>
 </head>
 <body>
 	

@@ -7,13 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>ログインを行ってください</title>
 </head>
 <body>
 
 	<h2>ログイン画面</h2>
 	
-	ようこそ${user.name}さん。
+	ログイン画面でログインを行ってください。
+	<a href="../login/login.jsp">ログイン画面へ</a>
 
 </body>
 </html>

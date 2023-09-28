@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>ログインに失敗しました</title>
 </head>
 <body>
 
 	<h2>ログイン画面</h2>
 	
-	<h1>ログイン失敗しました</h1>
+	<a href="login.jsp">ログイン画面へ</a>
 
 </body>
 </html>

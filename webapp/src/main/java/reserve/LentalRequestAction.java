@@ -19,7 +19,7 @@ public class LentalRequestAction extends Action{
 		User user=(User) session.getAttribute("user");
 		
 		if(session.getAttribute("user")==null) {
-			return "../login/login.jsp";
+			return "../login/login-return.jsp";
 		}
 		
 		String name=user.getName();

@@ -15,7 +15,7 @@ public class LentalAction extends Action{
 		HttpSession session=request.getSession();
 		
 		if(session.getAttribute("user")==null) {
-			return "../login/login.jsp";
+			return "../login/login-return.jsp";
 		}
 		
 		int id=Integer.parseInt(request.getParameter("id"));
