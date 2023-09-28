@@ -6,12 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import login.User;
-import tool.DAO;
+import tool.Dao;
 
-public class LoginDAO extends DAO{
+public class LoginDao extends Dao {
 
 	public User search(String name,String password) throws Exception {
-		
 		
 		User user=null;
 		String sql="select * from users where name=? and password=?";
@@ -54,5 +53,4 @@ public class LoginDAO extends DAO{
         	return count;
 		}
 	}
-	
 }

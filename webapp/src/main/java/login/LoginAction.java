@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import login.dao.LoginDAO;
+import login.dao.LoginDao;
 import reserve.ProductAction;
 import tool.Action;
 
@@ -26,7 +26,7 @@ public class LoginAction extends Action{
 		
 		String name=request.getParameter("username");
 		String password=request.getParameter("password");
-		LoginDAO dao=new LoginDAO();
+		LoginDao dao=new LoginDao();
 		
 		ArrayList<String> errorList=new ArrayList<>();
 		

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import login.dao.LoginDAO;
+import login.dao.LoginDao;
 import tool.Action;
 
 public class UserRegisterAction extends Action{
@@ -19,7 +19,7 @@ public class UserRegisterAction extends Action{
 		String name=request.getParameter("username");
 		String password=request.getParameter("password");
 		String phoneNumber=request.getParameter("phone");
-		LoginDAO dao=new LoginDAO();
+		LoginDao dao=new LoginDao();
 		
 ArrayList<String> errorList=new ArrayList<>();
 		

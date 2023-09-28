@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import reserve.Product;
-import tool.DAO;
+import tool.Dao;
 
-public class ProductDAO extends DAO {
+public class ProductDao extends Dao {
 
 	public List<Product> select(String keyword) throws Exception {
 		

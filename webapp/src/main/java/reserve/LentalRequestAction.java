@@ -6,32 +6,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import reserve.dao.ProductDao;
+import login.User;
+import reserve.dao.ReserveDao;
 import tool.Action;
 
-public class ProductAction extends Action{
+public class LentalRequestAction extends Action{
 
 	@Override
 	public String excute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		HttpSession session=request.getSession();
+		User user=(User) session.getAttribute("user");
 		
 		if(session.getAttribute("user")==null) {
 			return "../login/login.jsp";
 		}
 		
-		String keyword=request.getParameter("keyword");
+		String name=user.getName();
 		
-		if(keyword==null) {
-			keyword="";
+		if(name==null) {
+			name="";
 		}
+			
+		ReserveDao dao=new ReserveDao();
+		List<Lental> lentalList=dao.selectByUser(name);
 		
-		ProductDao dao=new ProductDao();
-		List<Product> productList=dao.select(keyword);
+		session.setAttribute("lentalList", lentalList);
 		
-		session.setAttribute("productList", productList);
-		
-		return "../reserve/home.jsp";
+		return "../reserve/lental-request.jsp";
+
 	}
 
 

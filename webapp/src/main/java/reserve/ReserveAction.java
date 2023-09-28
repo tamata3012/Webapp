@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import login.User;
-import reserve.dao.ProductDAO;
-import reserve.dao.ReserveDAO;
+import reserve.dao.ProductDao;
+import reserve.dao.ReserveDao;
 import tool.Action;
 
 public class ReserveAction extends Action {
@@ -19,8 +19,8 @@ public class ReserveAction extends Action {
 	public String excute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		HttpSession session=request.getSession();
-		ReserveDAO reserveDao=new ReserveDAO();
-		ProductDAO productDao=new ProductDAO();
+		ReserveDao reserveDao=new ReserveDao();
+		ProductDao productDao=new ProductDao();
 		User user=(User) session.getAttribute("user");
 		int count=0;
 		

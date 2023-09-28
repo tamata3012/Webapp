@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import reserve.dao.ProductDAO;
+import reserve.dao.ProductDao;
 import tool.Action;
 
 public class LentalAction extends Action{
@@ -20,7 +20,7 @@ public class LentalAction extends Action{
 		
 		int id=Integer.parseInt(request.getParameter("id"));
 		
-		ProductDAO dao=new ProductDAO();
+		ProductDao dao=new ProductDao();
 		Product product=dao.selectById(id);
 		
 		session.setAttribute("product", product);
