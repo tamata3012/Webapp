@@ -66,7 +66,7 @@ public class ProductDao extends Dao {
 	
 	public void changeNumber(int id,int lentalnum) throws Exception {
 		
-		String sql="update products set lental_number=lental_number-? where id=?";
+		String sql="update products set lental_number=lental_number+? where id=?";
 		
 
 		try(Connection con=getConnection();

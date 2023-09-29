@@ -16,9 +16,9 @@
 	下記項目すべてを入力してください。
 	<form action="UserRegister.action" method="post">
 		<div>
-			ユーザー名<input type="text" name="username"><br>
+			ユーザ名<input type="text" name="username"><br>
 			パスワード<input type="password" name="password"><br>
-			電話番号　<input type="text" name="phone"><br>
+			電話番号  <input type="text" name="phone"><br>
 			<button type="submit" >登録</button>
 		</div>
 	</form>

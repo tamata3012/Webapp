@@ -16,11 +16,11 @@
 		</div>
 	</c:if>
 	
-	<a href="login-register.jsp">ユーザー新規登録</a>
+	<a href="login-register.jsp">ユーザ新規登録</a>
 	
 	<form action="../login/Login.action" method="post">
 		<div>
-			ユーザー名:<input type="text" name="username"><br>
+			ユーザ名:<input type="text" name="username"><br>
 			パスワード:<input type="password" name="password"><br>
 			<input type="submit"  value="ログイン">
 		</div>

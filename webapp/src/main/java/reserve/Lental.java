@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Lental {
 	
 	private int id;
+	private int productId;
 	private String productName;
 	private String userName;
 	private int number;
@@ -17,6 +18,12 @@ public class Lental {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	public String getProductName() {
 		return productName;

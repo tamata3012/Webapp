@@ -64,7 +64,7 @@ public class ReserveAction extends Action {
 			if(count!=1) {
 				return "lental-false.jsp";
 			}
-			productDao.changeNumber(productId, Integer.parseInt(lentalNumber));
+			productDao.changeNumber(productId, Integer.parseInt(lentalNumber)*-1);
 			return "lental-success.jsp";
 		}
 		request.setAttribute("errorMessageList", errorList);
