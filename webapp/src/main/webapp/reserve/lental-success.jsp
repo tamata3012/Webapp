@@ -9,6 +9,6 @@
 	<h2>貸出申請が完了しました</h2>
 	
 	<a href="../reserve/Product.action">申請を続ける</a>
-	<a href"">申請内容を確認する</a>
+	<a href="../reserve/LentalRequest.action">申請内容を確認する</a>
 
 <%@include file="reserve-footer.html" %>

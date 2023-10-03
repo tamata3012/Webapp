@@ -5,7 +5,7 @@
 
 <%@include file="login-header.html" %>
 
-	<h2>ログイン画面</h2>
+	<h2>管理者用ログイン画面</h2>
 	
 	<c:if test="${!requestScope.message}">
 		<c:out value="${requestScope.message}" />
@@ -15,12 +15,9 @@
 		</c:forEach>
 		</div>
 	</c:if>
-	
-	<a href="login-register.jsp">ユーザ新規登録</a>
-	
-	<form action="../login/Login.action" method="post">
+	<form action="../login/LoginAdmin.action" method="post">
 		<div>
-			ユーザ名:<input type="text" name="username"><br>
+			ユーザ名:<input type="text" name="adminname"><br>
 			パスワード:<input type="password" name="password"><br>
 			<input type="submit"  value="ログイン">
 		</div>

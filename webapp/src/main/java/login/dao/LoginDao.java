@@ -12,7 +12,7 @@ public class LoginDao extends Dao {
 
 	public User search(String name,String password) throws Exception {
 		
-		User user=null;
+		User user=new User();
 		String sql="select * from users where name=? and password=?";
 		
 		try(Connection con=getConnection();
@@ -22,7 +22,6 @@ public class LoginDao extends Dao {
 			ResultSet rs=stmt.executeQuery();
 			
 			while(rs.next()) {
-				user=new User();
 				user.setId(rs.getInt(1));
 				user.setName(rs.getString(2));
 				user.setPassword(rs.getString(3));

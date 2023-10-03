@@ -6,11 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import login.dao.LoginDao;
+import admin.Admin;
+import login.dao.LoginAdminDao;
 import reserve.ProductAction;
 import tool.Action;
 
-public class LoginAction extends Action{
+public class LoginAdminAction extends Action{
 	
 
 
@@ -19,18 +20,18 @@ public class LoginAction extends Action{
 		
 		
 		HttpSession session=request.getSession();
-		
-		if(session.getAttribute("admin")!=null) {
-			session.removeAttribute("admin");;
+
+		if(session.getAttribute("user")!=null) {
+			session.removeAttribute("user");
 		}
 		
 		String page="login.jsp";
 		
-		ProductAction productAction=new ProductAction();
+		ProductAction productaction=new ProductAction();
 		
-		String name=request.getParameter("username");
+		String name=request.getParameter("adminname");
 		String password=request.getParameter("password");
-		LoginDao dao=new LoginDao();
+		LoginAdminDao dao=new LoginAdminDao();
 		
 		ArrayList<String> errorList=new ArrayList<>();
 		
@@ -42,10 +43,10 @@ public class LoginAction extends Action{
 		}
 		
 		if(errorList.isEmpty()) {
-			User user=dao.search(name, password);
-			if(user!=null) {
-				session.setAttribute("user", user);
-				page=productAction.excute(request, response);
+			Admin admin=dao.search(name, password);
+			if(admin!=null) {
+				session.setAttribute("admin", admin);
+				page=productaction.excute(request, response);
 			}else {
 				errorList.add("ユーザー名かパスワードが間違っています。");
 			}

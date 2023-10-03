@@ -15,7 +15,7 @@ public class ProductDao extends Dao {
 	public List<Product> select(String keyword) throws Exception {
 		
 		List<Product> productList=new ArrayList<>();
-		String sql="select * from products where name like ?";
+		String sql="select * from products where name like ? ORDER BY id";
 		
 
 		try(Connection con=getConnection();

@@ -16,6 +16,7 @@ public class RequestDeleteAction extends Action {
 
 		HttpSession session=request.getSession();
 		Lental lental=(Lental) session.getAttribute("lental");
+		LentalRequestAction action=new LentalRequestAction();
 		if(session.getAttribute("user")==null) {
 			return "../login/login-return.jsp";
 		}
@@ -34,8 +35,10 @@ public class RequestDeleteAction extends Action {
 		
 		ProductDao product=new ProductDao();
 		
-		product.changeNumber(id, number);		
-		return "../reserve/LentalRequest.action";
+		product.changeNumber(id, number);
+		String page=action.excute(request, response);
+		
+		return page;
 	}
 
 }

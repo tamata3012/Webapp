@@ -16,7 +16,7 @@ public class ProductAction extends Action{
 		
 		HttpSession session=request.getSession();
 		
-		if(session.getAttribute("user")==null) {
+		if(session.getAttribute("user")==null&&session.getAttribute("admin")==null) {
 			return "../login/login-return.jsp";
 		}
 		
@@ -30,6 +30,10 @@ public class ProductAction extends Action{
 		List<Product> productList=dao.select(keyword);
 		
 		session.setAttribute("productList", productList);
+		
+		if(session.getAttribute("admin")!=null) {
+			return "../admin/admin-home.jsp";
+		}
 		
 		return "../reserve/home.jsp";
 	}

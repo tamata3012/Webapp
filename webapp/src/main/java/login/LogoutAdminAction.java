@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import tool.Action;
 
-public class LogoutAction extends Action{
+public class LogoutAdminAction extends Action{
 	
 
 
@@ -16,11 +16,12 @@ public class LogoutAction extends Action{
 		
 		HttpSession session=request.getSession();
 		
-		if(session.getAttribute("admin")!=null||session.getAttribute("user")!=null) {
+		if(session.getAttribute("admin")!=null) {
 			session.invalidate();
-			return "../login/login.jsp";
+			return "../login/login-admin.jsp";
 		}
-		return "../login/logout-error.jsp";
+		
+		return "../login/logout-adminerror.jsp";
 	}
 
 }
