@@ -46,6 +46,41 @@ public class ReserveDao extends Dao {
 		return lental;
 	}
 	
+	public List<Lental> select() throws Exception {
+		
+		List<Lental> lentalList=new ArrayList<>();
+		String sql="with lental as(select * from lentals),"
+				+ "product as(select * from products) "
+				+ "select lental.id,lental.product_id,lental.lentalnumber,lental.user_name,lental.lental_date,lental.return_date,product.name "
+				+ "from lental left join product on lental.product_id=product.id";
+		
+
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){
+			ResultSet rs=stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				Lental lental=new Lental();
+				lental.setId(rs.getInt(1));
+				lental.setProductId(rs.getInt(2));
+				lental.setLentalNumber(rs.getInt(3));
+				lental.setuserName(rs.getString(4));
+				lental.setLentalDate(rs.getDate(5));
+				lental.setReturnDate(rs.getDate(6));
+				lental.setProductName(rs.getString(7));
+				lentalList.add(lental);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lentalList;
+		
+	}
+
+	
 	public List<Lental> selectByUser(String name) throws Exception {
 		
 		List<Lental> lentalList=new ArrayList<>();
