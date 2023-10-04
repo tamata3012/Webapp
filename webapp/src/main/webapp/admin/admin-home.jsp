@@ -17,7 +17,7 @@
 			<td>${product.name}</td>
 			<td>${product.lentalNumber}</td>
 			<td>
-				<form action="../reserve/ProductEdit.action?id=${product.id}" method="post">
+				<form action="../reserve/ProductDetail.action?id=${product.id}" method="post">
 	              <input type="submit" value="編集">
 	            </form>
             </td>
