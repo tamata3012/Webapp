@@ -28,7 +28,7 @@ public class ProductDao extends Dao {
 				product.setId(rs.getInt(1));
 				product.setName(rs.getString(2));
 				product.setNumber(rs.getInt(3));
-				product.setLentalNumber(rs.getInt(4));
+				product.setRentalNumber(rs.getInt(4));
 				productList.add(product);
 			}
 			
@@ -54,7 +54,7 @@ public class ProductDao extends Dao {
 					product.setId(rs.getInt(1));
 					product.setName(rs.getString(2));
 					product.setNumber(rs.getInt(3));
-					product.setLentalNumber(rs.getInt(4));
+					product.setRentalNumber(rs.getInt(4));
 				}
 				
 			} catch (SQLException e) {
@@ -64,12 +64,12 @@ public class ProductDao extends Dao {
 			return product;
 	}
 	
-	public int updateNumber(int id,int lentalnumber) throws SQLException, Exception {
-		String sql="update products set lental_number=?,number=number+?-lental_number where id = ? ";
+	public int updateNumber(int id,int rentalnumber) throws SQLException, Exception {
+		String sql="update products set rental_number=?,number=number+?-rental_number where id = ? ";
 		try(Connection con=getConnection();
 				PreparedStatement stmt =con.prepareStatement(sql)){	
-			stmt.setInt(1, lentalnumber);
-			stmt.setInt(2, lentalnumber);
+			stmt.setInt(1, rentalnumber);
+			stmt.setInt(2, rentalnumber);
 			stmt.setInt(3, id);
 			int count=stmt.executeUpdate();
 			
@@ -77,14 +77,14 @@ public class ProductDao extends Dao {
 		}
 	}
 	
-	public void changeNumber(int id,int lentalnum) throws Exception {
+	public void changeNumber(int id,int rentalnum) throws Exception {
 		
-		String sql="update products set lental_number=lental_number+? where id=?";
+		String sql="update products set rental_number=rental_number+? where id=?";
 		
 
 		try(Connection con=getConnection();
 				PreparedStatement stmt =con.prepareStatement(sql)){	
-			stmt.setInt(1, lentalnum);
+			stmt.setInt(1, rentalnum);
 			stmt.setInt(2, id);
 			stmt.executeUpdate(); 
 		}

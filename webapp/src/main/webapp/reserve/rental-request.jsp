@@ -3,8 +3,8 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="admin-header.html" %>
-<%@include file="admin-menu.jsp" %>
+<%@include file="reserve-header.html" %>
+<%@include file="menu.jsp" %>
 
 	<p>ようこそ${user.name}さん。
 	
@@ -17,17 +17,16 @@
 					<td></td>
 					<td>貸出品名</td>
 					<td>申請数</td>
-					<td>申請者名</td>
 					<td>返却予定日</td>
 				</tr>
-				<c:forEach var="lental" items="${lentalList}" varStatus="status">
+				<c:forEach var="rental" items="${rentalList}" varStatus="status">
 					<tr>
 						<td>${status.count}</td>
-						<td>${lental.productName}</td>
-						<td>${lental.lentalNumber}</td>
-						<td>${lental.returnDate}</td>
+						<td>${rental.productName}</td>
+						<td>${rental.rentalNumber}</td>
+						<td>${rental.returnDate}</td>
 						<td>
-							<form action="../reserve/AdminLentalDetail.action?id=${lental.id}" method="post">
+							<form action="../reserve/RentalDetail.action?id=${rental.id}" method="post">
 				              <input type="submit" value="詳細表示">
 				            </form>
 			            </td>
@@ -38,4 +37,4 @@
 		<c:otherwise>申請中のものはありません。</c:otherwise>
 	</c:choose>
 
-<%@include file="admin-footer.html" %>
+<%@include file="reserve-footer.html" %>

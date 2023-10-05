@@ -5,7 +5,7 @@ public class Product {
 	private int id;
 	private String name;
 	private int number;
-	private int lentalNumber;
+	private int rentalNumber;
 	
 	public int getId() {
 		return id;
@@ -25,11 +25,11 @@ public class Product {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public int getLentalNumber() {
-		return lentalNumber;
+	public int getRentalNumber() {
+		return rentalNumber;
 	}
-	public void setLentalNumber(int lentalNumber) {
-		this.lentalNumber = lentalNumber;
+	public void setRentalNumber(int rentalNumber) {
+		this.rentalNumber = rentalNumber;
 	}
 
 }

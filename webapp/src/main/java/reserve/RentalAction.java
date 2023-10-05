@@ -7,14 +7,14 @@ import javax.servlet.http.HttpSession;
 import reserve.dao.ProductDao;
 import tool.Action;
 
-public class ProductDetailAction extends Action{
+public class RentalAction extends Action{
 
 	@Override
 	public String excute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-HttpSession session=request.getSession();
+		HttpSession session=request.getSession();
 		
-		if(session.getAttribute("admin")==null) {
+		if(session.getAttribute("user")==null) {
 			return "../login/login-return.jsp";
 		}
 		
@@ -25,7 +25,8 @@ HttpSession session=request.getSession();
 		
 		session.setAttribute("product", product);
 		
-		return "product-detail.jsp";
+		return "rentalreserve.jsp";
 	}
+
 
 }

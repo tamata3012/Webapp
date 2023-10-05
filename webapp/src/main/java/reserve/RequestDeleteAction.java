@@ -15,8 +15,8 @@ public class RequestDeleteAction extends Action {
 		
 
 		HttpSession session=request.getSession();
-		Lental lental=(Lental) session.getAttribute("lental");
-		LentalRequestAction action=new LentalRequestAction();
+		Rental rental=(Rental) session.getAttribute("rental");
+		RentalRequestAction action=new RentalRequestAction();
 		if(session.getAttribute("user")==null) {
 			return "../login/login-return.jsp";
 		}
@@ -27,11 +27,11 @@ public class RequestDeleteAction extends Action {
 		int count=dao.delete(id);
 		
 		if(count!=1){
-			return "lental-detail.jsp";
+			return "rental-detail.jsp";
 		}
 		
-		int number=lental.getLentalNumber();
-		id=lental.getProductId();
+		int number=rental.getRentalNumber();
+		id=rental.getProductId();
 		
 		ProductDao product=new ProductDao();
 		

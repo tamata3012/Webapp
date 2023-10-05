@@ -1,9 +1,10 @@
-package reserve;
+package admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import reserve.ProductAction;
 import reserve.dao.ProductDao;
 import tool.Action;
 
@@ -21,7 +22,7 @@ public class ProductEditAction extends Action {
 			return "../login/login-adminreturn.jsp";
 		}
 		
-		int lentalnumber=Integer.parseInt(request.getParameter("lentalnumber"));
+		int lentalnumber=Integer.parseInt(request.getParameter("rentalnumber"));
 		int id=Integer.parseInt(request.getParameter("productid"));
 		
 		int count=dao.updateNumber(id,lentalnumber);

@@ -37,16 +37,16 @@ public class ReserveAction extends Action {
 		String username=user.getName();
 		
 		int productId=Integer.parseInt(request.getParameter("productid"));
-		String lentalNumber=request.getParameter("lentalnumber");
+		String rentalNumber=request.getParameter("rentalnumber");
 		
-		int productnumber=product.getLentalNumber();
+		int productnumber=product.getRentalNumber();
 		String returnDate=request.getParameter("date");	
 		Date todayDate=new Date();
 		ArrayList<String> errorList=new ArrayList<>();
 		
-		if(lentalNumber==null||lentalNumber.equals("")) {
+		if(rentalNumber==null||rentalNumber.equals("")) {
 			errorList.add("申請数を入力してください。");
-		}else if(Integer.parseInt(lentalNumber)>productnumber) {
+		}else if(Integer.parseInt(rentalNumber)>productnumber) {
 			errorList.add("貸出可能数を超えた申請数です。");
 		}
 		if(returnDate==null||returnDate.equals("")) {
@@ -59,16 +59,16 @@ public class ReserveAction extends Action {
 		}
 		
 		if(errorList.isEmpty()) {
-			count=reserveDao.register(productId,Integer.parseInt(lentalNumber),username,returnDate);
+			count=reserveDao.register(productId,Integer.parseInt(rentalNumber),username,returnDate);
 			
 			if(count!=1) {
-				return "lental-false.jsp";
+				return "rental-false.jsp";
 			}
-			productDao.changeNumber(productId, Integer.parseInt(lentalNumber)*-1);
-			return "lental-success.jsp";
+			productDao.changeNumber(productId, Integer.parseInt(rentalNumber)*-1);
+			return "rental-success.jsp";
 		}
 		request.setAttribute("errorMessageList", errorList);
-		return "lentalreserve.jsp";
+		return "rentalreserve.jsp";
 	}
 
 }

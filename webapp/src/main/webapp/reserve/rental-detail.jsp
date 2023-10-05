@@ -10,22 +10,22 @@
 		<table>
 			<tr>
 				<td>貸出品名</td>
-				<td>${lental.productName}</td>
+				<td>${rental.productName}</td>
 			</tr>
 			<tr>
 				<td>申請数</td>
-				<td>${lental.lentalNumber}</td>
+				<td>${rental.rentalNumber}</td>
 			</tr>
 			<tr>
 				<td>申請日</td>
-				<td>${lental.lentalDate}</td>
+				<td>${rental.rentalDate}</td>
 			</tr>
 			<tr>
 				<td>返却予定日</td>
-				<td>${lental.returnDate}</td>
+				<td>${rental.returnDate}</td>
 			</tr>
 		</table>
-		<form action="../reserve/RequestDelete.action?id=${lental.id}" method="post">
+		<form action="../reserve/RequestDelete.action?id=${rental.id}" method="post">
 			<input type="submit" value="申請取消">
 		</form>
 

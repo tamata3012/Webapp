@@ -15,9 +15,9 @@
 	<c:forEach var="product" items="${productList}">
 		<tr>
 			<td>${product.name}</td>
-			<td>${product.lentalNumber}</td>
+			<td>${product.rentalNumber}</td>
 			<td>
-				<form action="../reserve/ProductDetail.action?id=${product.id}" method="post">
+				<form action="../admin/ProductDetail.action?id=${product.id}" method="post">
 	              <input type="submit" value="編集">
 	            </form>
             </td>

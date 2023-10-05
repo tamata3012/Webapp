@@ -3,8 +3,8 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="reserve-header.html" %>
-<%@include file="menu.jsp" %>
+<%@include file="admin-header.html" %>
+<%@include file="admin-menu.jsp" %>
 
 	<h2>貸出予約</h2>
 	<c:if test="${!requestScope.message}">
@@ -15,7 +15,7 @@
 		</c:forEach>
 		</div>
 	</c:if>
-	<form action="../reserve/ProductEdit.action" method="post">
+	<form action="../admin/ProductEdit.action" method="post">
 		<table>
 			<tr>
 				<td>貸出品名</td>
@@ -23,11 +23,11 @@
 			</tr>
 			<tr>
 				<td>貸出可能数</td>
-				<td><input type="number" name="lentalnumber" value="${product.lentalNumber}"></td>
+				<td><input type="number" name="rentalnumber" value="${product.rentalNumber}"></td>
 			</tr>
 		</table>
 		<input type="submit" value="変更">
 		<input type="hidden" name="productid" value="${product.id}">
 	</form>
 
-<%@include file="reserve-footer.html" %>
+<%@include file="admin-footer.html" %>

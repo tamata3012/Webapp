@@ -23,11 +23,11 @@
 			</tr>
 			<tr>
 				<td>貸出可能数</td>
-				<td>${product.lentalNumber}</td>
+				<td>${product.rentalNumber}</td>
 			</tr>
 			<tr>
 				<td>申請数</td>
-				<td><input type="number" name="lentalnumber"></td>
+				<td><input type="number" name="rentalnumber"></td>
 			</tr>
 			<tr>
 				<td>返却予定日</td>
