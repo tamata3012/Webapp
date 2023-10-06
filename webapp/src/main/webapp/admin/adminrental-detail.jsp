@@ -25,7 +25,9 @@
 				<td>${rental.returnDate}</td>
 			</tr>
 			<tr>
-				<td>
+			<c:choose>
+				<c:when test="${rental.rentalCode==1}">
+					<td>
 					<form action="../admin/RequestApproval.action?id=${rental.id}" method="post">
 						<input type="submit" value="承認">
 						<input type="hidden" name="productid" value="${product.id}">
@@ -37,6 +39,16 @@
 						<input type="hidden" name="productid" value="${product.id}">
 					</form>
 				</td>
+				</c:when>
+				<c:when test="${rental.rentalCode==2}">
+					<td>
+					<form action="../admin/ReturnRequest.action?id=${rental.id}" method="post">
+						<input type="submit" value="返却">
+						<input type="hidden" name="productid" value="${product.id}">
+					</form>
+				</td>
+				</c:when>
+			</c:choose>
 			</tr>
 		</table>
 

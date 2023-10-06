@@ -21,8 +21,14 @@ public class ReserveDao extends Dao {
 	public Rental selectById(int id) throws Exception{
 		
 		Rental rental=new Rental();
-		String sql="select rental.id,rental.product_id,rental.rentalnumber,rental.user_name,rental.rental_date,rental.return_date,product.name "
-				+ "from rentals as rental left join products as product on rental.product_id=product.id where rental.id=?";
+		String sql="with rental as(select rentals.*,codes.value "
+				+ "from rentals left join codes on rentals.status_code=codes.id),"
+				+ "product as(select id,name from products),"
+				+ "loginuser as(select id,name from users) "
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,rental.status_code,rental.value,product.name,loginuser.name "
+				+ "from rental left join product on rental.product_id=product.id "
+				+ "left join loginuser on rental.user_id=loginuser.id "
+				+ "where rental.id=?";
 		
 		try(Connection con=getConnection();
 				PreparedStatement stmt =con.prepareStatement(sql)){
@@ -34,10 +40,12 @@ public class ReserveDao extends Dao {
 				rental.setId(rs.getInt(1));
 				rental.setProductId(rs.getInt(2));
 				rental.setRentalNumber(rs.getInt(3));
-				rental.setuserName(rs.getString(4));
-				rental.setRentalDate(rs.getDate(5));
-				rental.setReturnDate(rs.getDate(6));
-				rental.setProductName(rs.getString(7));
+				rental.setRentalDate(rs.getDate(4));
+				rental.setReturnDate(rs.getDate(5));
+				rental.setRentalCode(rs.getInt(6));
+				rental.setRentalStatus(rs.getString(7));
+				rental.setProductName(rs.getString(8));
+				rental.setuserName(rs.getString(9));
 			}
 			
 		} catch (SQLException e) {
@@ -49,10 +57,13 @@ public class ReserveDao extends Dao {
 	public List<Rental> select() throws Exception {
 		
 		List<Rental> rentalList=new ArrayList<>();
-		String sql="with rental as(select * from rentals),"
-				+ "product as(select * from products) "
-				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.user_name,rental.rental_date,rental.return_date,product.name "
-				+ "from rental left join product on rental.product_id=product.id";
+		String sql="with rental as(select rentals.*,codes.value "
+				+ "from rentals left join codes on rentals.status_code=codes.id where rentals.status_code not in(3,4)),"
+				+ "product as(select id,name from products),"
+				+ "loginuser as(select id,name from users) "
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,rental.value,product.name,loginuser.name "
+				+ "from rental left join product on rental.product_id=product.id "
+				+ "left join loginuser on rental.user_id=loginuser.id";
 		
 
 		try(Connection con=getConnection();
@@ -65,10 +76,11 @@ public class ReserveDao extends Dao {
 				rental.setId(rs.getInt(1));
 				rental.setProductId(rs.getInt(2));
 				rental.setRentalNumber(rs.getInt(3));
-				rental.setuserName(rs.getString(4));
-				rental.setRentalDate(rs.getDate(5));
-				rental.setReturnDate(rs.getDate(6));
+				rental.setRentalDate(rs.getDate(4));
+				rental.setReturnDate(rs.getDate(5));
+				rental.setRentalStatus(rs.getString(6));;
 				rental.setProductName(rs.getString(7));
+				rental.setuserName(rs.getString(8));
 				rentalList.add(rental);
 			}
 			
@@ -81,18 +93,22 @@ public class ReserveDao extends Dao {
 	}
 
 	
-	public List<Rental> selectByUser(String name) throws Exception {
+	public List<Rental> selectByUserId(int id) throws Exception {
 		
 		List<Rental> rentalList=new ArrayList<>();
-		String sql="with rental as(select * from rentals where user_name=?),"
-				+ "product as(select * from products) "
-				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.user_name,rental.rental_date,rental.return_date,product.name "
-				+ "from rental left join product on rental.product_id=product.id";
+		String sql="with rental as(select rentals.*,codes.value "
+				+ "from rentals left join codes on rentals.status_code=codes.id where user_id=?),"
+				+ "product as(select id,name from products),"
+				+ "loginuser as(select id,name from users where id=?) "
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,product.name,loginuser.name "
+				+ "from rental left join product on rental.product_id=product.id "
+				+ "left join loginuser on rental.user_id=loginuser.id";
 		
 
 		try(Connection con=getConnection();
 				PreparedStatement stmt =con.prepareStatement(sql)){
-			stmt.setString(1, name);
+			stmt.setInt(1, id);
+			stmt.setInt(2, id);
 			ResultSet rs=stmt.executeQuery();
 			
 			
@@ -101,10 +117,10 @@ public class ReserveDao extends Dao {
 				rental.setId(rs.getInt(1));
 				rental.setProductId(rs.getInt(2));
 				rental.setRentalNumber(rs.getInt(3));
-				rental.setuserName(rs.getString(4));
-				rental.setRentalDate(rs.getDate(5));
-				rental.setReturnDate(rs.getDate(6));
-				rental.setProductName(rs.getString(7));
+				rental.setRentalDate(rs.getDate(4));
+				rental.setReturnDate(rs.getDate(5));
+				rental.setProductName(rs.getString(6));
+				rental.setuserName(rs.getString(7));
 				rentalList.add(rental);
 			}
 			
@@ -116,17 +132,17 @@ public class ReserveDao extends Dao {
 		
 	}
 
-	public int register(int id,int number,String name,String returnDate) throws Exception {
+	public int register(int id,int number,int userId,String returnDate) throws Exception {
 		
-		String sql="insert into rentals(product_id,rentalnumber,user_name,rental_date,return_date,status) values(?,?,?,current_date,?,0)";
+		String sql="insert into rentals(product_id,rentalnumber,rental_date,return_date,status_code,user_id) values(?,?,current_date,?,1,?)";
 		
 		try(Connection con=getConnection();
 				PreparedStatement stmt=con.prepareStatement(sql)){
 			
 			stmt.setInt(1,id);
 			stmt.setInt(2, number);
-			stmt.setString(3,name);
-			stmt.setDate(4,Date.valueOf(returnDate));
+			stmt.setDate(3,Date.valueOf(returnDate));
+			stmt.setInt(4,userId);
 			
 			int count=stmt.executeUpdate();   
         	
@@ -134,9 +150,24 @@ public class ReserveDao extends Dao {
 		}
 	}
 	
+	public int registerReturn(int id) throws Exception {
+		
+		String sql="insert into rental_return(rental_id,return_date) values(?,current_date)";
+		
+		try(Connection con=getConnection();
+				PreparedStatement stmt=con.prepareStatement(sql)){
+			
+			stmt.setInt(1,id);
+			
+			int count=stmt.executeUpdate();
+        	
+        	return count;
+		}
+	}
+	
 	public int updateStatus(int id,int status){
 		
-		String sql="update rentals set status=? where id=?";
+		String sql="update rentals set status_code=? where id=?";
 		int count=0;
 		
 		try(Connection con=getConnection();

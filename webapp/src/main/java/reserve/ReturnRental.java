@@ -2,7 +2,7 @@ package reserve;
 
 import java.sql.Date;
 
-public class Rental {
+public class ReturnRental {
 	
 	private int id;
 	private int productId;

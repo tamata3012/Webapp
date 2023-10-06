@@ -22,9 +22,9 @@ public class RequestApprovalAction extends Action {
 		int id=Integer.parseInt(request.getParameter("id"));
 		
 		ReserveDao dao=new ReserveDao();
-		int count=dao.updateStatus(id,1);
+		dao.updateStatus(id,2);
 		
-		return "../admin/rental-allrequest.jsp";
+		return "AllRentalRequest.action";
 	}
 
 }

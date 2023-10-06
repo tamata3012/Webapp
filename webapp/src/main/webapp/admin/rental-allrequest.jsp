@@ -7,7 +7,7 @@
 <%@include file="admin-menu.jsp" %>
 	
 	<h2>貸出一覧</h2>
-	<h3>申請中</h3>
+	<b>申請中</b>
 	<c:choose>
 		<c:when test="${!requestScope.rentalList}">
 			<table style="border-collapse:separate;border-spacing:10px;">
@@ -17,6 +17,7 @@
 					<td>申請数</td>
 					<td>申請者名</td>
 					<td>返却予定日</td>
+					<td>貸し出し状況</td>
 				</tr>
 				<c:forEach var="rental" items="${rentalList}" varStatus="status">
 					<tr>
@@ -25,6 +26,7 @@
 						<td>${rental.rentalNumber}</td>
 						<td>${rental.userName}</td>
 						<td>${rental.returnDate}</td>
+						<td>${rental.rentalStatus}</td>
 						<td>
 							<form action="../admin/AdminRentalDetail.action?id=${rental.id}" method="post">
 				              <input type="submit" value="詳細表示">

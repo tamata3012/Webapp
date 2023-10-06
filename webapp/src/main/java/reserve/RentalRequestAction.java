@@ -22,14 +22,10 @@ public class RentalRequestAction extends Action{
 			return "../login/login-return.jsp";
 		}
 		
-		String name=user.getName();
-		
-		if(name==null) {
-			name="";
-		}
+		int id=user.getId();
 			
 		ReserveDao dao=new ReserveDao();
-		List<Rental> rentalList=dao.selectByUser(name);
+		List<Rental> rentalList=dao.selectByUserId(id);
 		
 		session.setAttribute("rentalList", rentalList);
 		

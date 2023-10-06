@@ -34,7 +34,7 @@ public class ReserveAction extends Action {
 			return "../login/login-return.jsp";
 		}
 		
-		String username=user.getName();
+		int userId=user.getId();
 		
 		int productId=Integer.parseInt(request.getParameter("productid"));
 		String rentalNumber=request.getParameter("rentalnumber");
@@ -59,7 +59,7 @@ public class ReserveAction extends Action {
 		}
 		
 		if(errorList.isEmpty()) {
-			count=reserveDao.register(productId,Integer.parseInt(rentalNumber),username,returnDate);
+			count=reserveDao.register(productId,Integer.parseInt(rentalNumber),userId,returnDate);
 			
 			if(count!=1) {
 				return "rental-false.jsp";
