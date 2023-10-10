@@ -32,6 +32,13 @@
 					</form>
 				</td>
 				</c:if>
+				<c:if test="${rental.rentalCode==4}">
+				<td>
+					<form action="../reserve/Rental.action?id=${rental.productId}" method="post">
+	              	<input type="submit" value="再申請">
+	            </form>
+				</td>
+				</c:if>
 				<td>
 					<form action="../reserve/RentalRequest.action" method="post">
 							<input type="submit" value="戻る">
