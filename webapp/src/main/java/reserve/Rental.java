@@ -8,6 +8,7 @@ public class Rental {
 	private int productId;
 	private String productName;
 	private String userName;
+	private String userPhone;
 	private int number;
 	private int rentalNumber;
 	private Date rentalDate;
@@ -38,6 +39,12 @@ public class Rental {
 	}
 	public void setuserName(String userName) {
 		this.userName = userName;
+	}
+	public String getUserPhone() {
+		return userPhone;
+	}
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 	public int getNumber() {
 		return number;

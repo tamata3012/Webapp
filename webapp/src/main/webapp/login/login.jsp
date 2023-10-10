@@ -7,7 +7,7 @@
 
 	<h2>ログイン画面</h2>
 	
-	<c:if test="${!requestScope.message}">
+	<c:if test="${requestScope.message=null}">
 		<c:out value="${requestScope.message}" />
 		<div style="text-align: :center;color:red;font-weight:bold;">
 		<c:forEach var="message" items="${requestScope.errorMessageList}">

@@ -18,6 +18,7 @@
 					<td>貸出品名</td>
 					<td>申請数</td>
 					<td>返却予定日</td>
+					<td>申請状況</td>
 				</tr>
 				<c:forEach var="rental" items="${rentalList}" varStatus="status">
 					<tr>
@@ -25,6 +26,7 @@
 						<td>${rental.productName}</td>
 						<td>${rental.rentalNumber}</td>
 						<td>${rental.returnDate}</td>
+						<td>${rental.rentalStatus}</td>
 						<td>
 							<form action="../reserve/RentalDetail.action?id=${rental.id}" method="post">
 				              <input type="submit" value="詳細表示">

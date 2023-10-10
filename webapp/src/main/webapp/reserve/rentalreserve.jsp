@@ -7,7 +7,7 @@
 <%@include file="menu.jsp" %>
 
 	<h2>貸出予約</h2>
-	<c:if test="${!requestScope.message}">
+	<c:if test="${requestScope.message=null}">
 		<c:out value="${requestScope.message}" /><br>
 		<div style="text-align: :center;color:red;font-weight:bold;">
 		<c:forEach var="message" items="${requestScope.errorMessageList}">

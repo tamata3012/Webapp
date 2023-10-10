@@ -17,6 +17,7 @@ public class ProductDao extends Dao {
 		List<Product> productList=new ArrayList<>();
 		String sql="select * from products where name like ? ORDER BY id";
 		
+		Product product=null;
 
 		try(Connection con=getConnection();
 				PreparedStatement stmt =con.prepareStatement(sql)){
@@ -24,7 +25,7 @@ public class ProductDao extends Dao {
 			ResultSet rs=stmt.executeQuery();
 			
 			while(rs.next()) {
-				Product product=new Product();
+				product=new Product();
 				product.setId(rs.getInt(1));
 				product.setName(rs.getString(2));
 				product.setNumber(rs.getInt(3));
@@ -38,10 +39,33 @@ public class ProductDao extends Dao {
 		
 		return productList;
 	}
+	
+	public Product selectByName(String name) throws Exception {
+		
+		Product product=null;
+		String sql="select name from products where name=?";
+		
+
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){
+			stmt.setString(1, name);
+			ResultSet rs=stmt.executeQuery();
+			
+			while(rs.next()) {
+				product=new Product();
+				product.setName(rs.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return product;
+}
 		
 	public Product selectById(int id) throws Exception {
 			
-			Product product=new Product();
+			Product product=null;
 			String sql="select * from products where id=?";
 			
 	
@@ -51,6 +75,7 @@ public class ProductDao extends Dao {
 				ResultSet rs=stmt.executeQuery();
 				
 				while(rs.next()) {
+					product=new Product();
 					product.setId(rs.getInt(1));
 					product.setName(rs.getString(2));
 					product.setNumber(rs.getInt(3));
@@ -62,6 +87,24 @@ public class ProductDao extends Dao {
 			}
 			
 			return product;
+	}
+	
+	public void register(String name,int number) {
+		
+		String sql="insert into products(name,number,rental_number) values(?,?,?)";
+		
+		
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){	
+			stmt.setString(1, name);
+			stmt.setInt(2, number);
+			stmt.setInt(3, number);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int updateNumber(int id,int rentalnumber) throws SQLException, Exception {

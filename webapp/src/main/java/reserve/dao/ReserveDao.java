@@ -17,43 +17,6 @@ public class ReserveDao extends Dao {
 		
 	}
 	
-	
-	public Rental selectById(int id) throws Exception{
-		
-		Rental rental=new Rental();
-		String sql="with rental as(select rentals.*,codes.value "
-				+ "from rentals left join codes on rentals.status_code=codes.id),"
-				+ "product as(select id,name from products),"
-				+ "loginuser as(select id,name from users) "
-				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,rental.status_code,rental.value,product.name,loginuser.name "
-				+ "from rental left join product on rental.product_id=product.id "
-				+ "left join loginuser on rental.user_id=loginuser.id "
-				+ "where rental.id=?";
-		
-		try(Connection con=getConnection();
-				PreparedStatement stmt =con.prepareStatement(sql)){
-			stmt.setInt(1, id);
-			ResultSet rs=stmt.executeQuery();
-			
-			
-			while(rs.next()) {
-				rental.setId(rs.getInt(1));
-				rental.setProductId(rs.getInt(2));
-				rental.setRentalNumber(rs.getInt(3));
-				rental.setRentalDate(rs.getDate(4));
-				rental.setReturnDate(rs.getDate(5));
-				rental.setRentalCode(rs.getInt(6));
-				rental.setRentalStatus(rs.getString(7));
-				rental.setProductName(rs.getString(8));
-				rental.setuserName(rs.getString(9));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rental;
-	}
-	
 	public List<Rental> select() throws Exception {
 		
 		List<Rental> rentalList=new ArrayList<>();
@@ -91,7 +54,84 @@ public class ReserveDao extends Dao {
 		return rentalList;
 		
 	}
-
+	
+	public Rental selectById(int id) throws Exception{
+		
+		Rental rental=null;
+		String sql="with rental as(select rentals.*,codes.value "
+				+ "from rentals left join codes on rentals.status_code=codes.id),"
+				+ "product as(select id,name from products),"
+				+ "loginuser as(select id,name,phonenumber  from users) "
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,rental.status_code,rental.value,product.name,loginuser.name,loginuser.phonenumber  "
+				+ "from rental left join product on rental.product_id=product.id "
+				+ "left join loginuser on rental.user_id=loginuser.id "
+				+ "where rental.id=?";
+		
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){
+			stmt.setInt(1, id);
+			ResultSet rs=stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				rental=new Rental();
+				rental.setId(rs.getInt(1));
+				rental.setProductId(rs.getInt(2));
+				rental.setRentalNumber(rs.getInt(3));
+				rental.setRentalDate(rs.getDate(4));
+				rental.setReturnDate(rs.getDate(5));
+				rental.setRentalCode(rs.getInt(6));
+				rental.setRentalStatus(rs.getString(7));
+				rental.setProductName(rs.getString(8));
+				rental.setuserName(rs.getString(9));
+				rental.setUserPhone(rs.getString(10));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rental;
+	}
+	
+	public Rental selectByReturn(int id) throws Exception{
+		
+		Rental rental=null;
+		String sql="with rental as(select rentals.*,codes.value "
+				+ "from rentals left join codes on rentals.status_code=codes.id where rentals.id=?),"
+				+ "product as(select id,name from products),"
+				+ "loginuser as(select id,name,phonenumber from users),"
+				+ "rentalreturn as(select * from rental_return) "
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rentalreturn.return_date,rental.status_code,rental.value,product.name,loginuser.name,loginuser.phonenumber "
+				+ "from rental left join product on rental.product_id=product.id "
+				+ "left join loginuser on rental.user_id=loginuser.id "
+				+ "left join rentalreturn on rental.id=rentalreturn.rental_id ";
+		
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){
+			stmt.setInt(1, id);
+			ResultSet rs=stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				rental=new Rental();
+				rental.setId(rs.getInt(1));
+				rental.setProductId(rs.getInt(2));
+				rental.setRentalNumber(rs.getInt(3));
+				rental.setRentalDate(rs.getDate(4));
+				rental.setReturnDate(rs.getDate(5));
+				rental.setRentalCode(rs.getInt(6));
+				rental.setRentalStatus(rs.getString(7));
+				rental.setProductName(rs.getString(8));
+				rental.setuserName(rs.getString(9));
+				rental.setUserPhone(rs.getString(10));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rental;
+	}
+	
 	
 	public List<Rental> selectByUserId(int id) throws Exception {
 		
@@ -100,7 +140,7 @@ public class ReserveDao extends Dao {
 				+ "from rentals left join codes on rentals.status_code=codes.id where user_id=?),"
 				+ "product as(select id,name from products),"
 				+ "loginuser as(select id,name from users where id=?) "
-				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,product.name,loginuser.name "
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,rental.value,product.name,loginuser.name "
 				+ "from rental left join product on rental.product_id=product.id "
 				+ "left join loginuser on rental.user_id=loginuser.id";
 		
@@ -113,14 +153,16 @@ public class ReserveDao extends Dao {
 			
 			
 			while(rs.next()) {
+				
 				Rental rental=new Rental();
 				rental.setId(rs.getInt(1));
 				rental.setProductId(rs.getInt(2));
 				rental.setRentalNumber(rs.getInt(3));
 				rental.setRentalDate(rs.getDate(4));
 				rental.setReturnDate(rs.getDate(5));
-				rental.setProductName(rs.getString(6));
-				rental.setuserName(rs.getString(7));
+				rental.setRentalStatus(rs.getString(6));
+				rental.setProductName(rs.getString(7));
+				rental.setuserName(rs.getString(8));
 				rentalList.add(rental);
 			}
 			
@@ -131,6 +173,46 @@ public class ReserveDao extends Dao {
 		return rentalList;
 		
 	}
+	
+	public List<Rental> selectReturn() throws Exception {
+		
+		List<Rental> returnList=new ArrayList<>();
+		String sql="with rental as(select rentals.*,codes.value "
+				+ "from rentals left join codes on rentals.status_code=codes.id where rentals.status_code=3),"
+				+ "product as(select id,name from products),"
+				+ "loginuser as(select id,name,phonenumber  from users),"
+				+ "rentalreturn as(select * from rental_return)"
+				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rentalreturn.return_date,rental.value,product.name,loginuser.name "
+				+ "from rental left join product on rental.product_id=product.id "
+				+ "left join loginuser on rental.user_id=loginuser.id "
+				+ "left join rentalreturn on rental.id=rentalreturn.rental_id";
+		
+
+		try(Connection con=getConnection();
+				PreparedStatement stmt =con.prepareStatement(sql)){
+			ResultSet rs=stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				Rental rental=new Rental();
+				rental.setId(rs.getInt(1));
+				rental.setProductId(rs.getInt(2));
+				rental.setRentalNumber(rs.getInt(3));
+				rental.setRentalDate(rs.getDate(4));
+				rental.setReturnDate(rs.getDate(5));
+				rental.setRentalStatus(rs.getString(6));;
+				rental.setProductName(rs.getString(7));
+				rental.setuserName(rs.getString(8));
+				returnList.add(rental);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return returnList;
+	}
+		
 
 	public int register(int id,int number,int userId,String returnDate) throws Exception {
 		

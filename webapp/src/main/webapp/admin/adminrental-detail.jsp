@@ -21,8 +21,24 @@
 				<td>${rental.rentalDate}</td>
 			</tr>
 			<tr>
-				<td>返却予定日</td>
-				<td>${rental.returnDate}</td>
+				<c:choose>
+					<c:when test="${rental.rentalCode!=3}">
+						<td>返却予定日</td>
+						<td>${rental.returnDate}</td>
+					</c:when>
+					<c:otherwise>
+						<td>返却日</td>
+						<td>${rental.returnDate}</td>
+					</c:otherwise>
+				</c:choose>
+			</tr>
+			<tr>
+				<td>ユーザー名</td>
+				<td>${rental.userName}</td>
+			</tr>
+			<tr>
+				<td>電話番号</td>
+				<td>${rental.userPhone}</td>
 			</tr>
 			<tr>
 			<c:choose>
@@ -44,11 +60,17 @@
 					<td>
 					<form action="../admin/ReturnRequest.action?id=${rental.id}" method="post">
 						<input type="submit" value="返却">
-						<input type="hidden" name="productid" value="${product.id}">
+						<input type="hidden" name="productId" value="${rental.productId}">
+						<input type="hidden" name="rentalNumber" value="${rental.rentalNumber}">
 					</form>
 				</td>
 				</c:when>
 			</c:choose>
+			<td>
+				<form action="../admin/AllRentalRequest.action" method="post">
+						<input type="submit" value="戻る">
+				</form>
+			</td>
 			</tr>
 		</table>
 
