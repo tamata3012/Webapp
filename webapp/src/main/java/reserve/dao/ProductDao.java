@@ -36,8 +36,10 @@ public class ProductDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
@@ -61,8 +63,10 @@ public class ProductDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
@@ -89,8 +93,10 @@ public class ProductDao extends Dao {
 				}
 				
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new RentalException("システムエラーが発生しました。");
-			} catch (Exception e1) {
+			} catch (Exception e) {
+				e.printStackTrace();
 				throw new RentalRuntimeException("エラーが発生しました。");
 			}
 			return product;
@@ -108,8 +114,10 @@ public class ProductDao extends Dao {
 			stmt.setInt(3, number);
 			stmt.executeUpdate();
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
@@ -125,8 +133,10 @@ public class ProductDao extends Dao {
 			stmt.setInt(3, id);
 			count=stmt.executeUpdate();
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		return count;
@@ -143,8 +153,10 @@ public class ProductDao extends Dao {
 			stmt.setInt(2, id);
 			stmt.executeUpdate(); 
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}

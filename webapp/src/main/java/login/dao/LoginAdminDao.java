@@ -29,8 +29,10 @@ public Admin search(String name,String password) throws RentalException, RentalR
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		

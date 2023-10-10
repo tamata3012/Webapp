@@ -6,7 +6,7 @@
 <%@include file="admin-header.html" %>
 <%@include file="admin-menu.jsp" %>
 
-	<h2>貸出予約</h2>
+	<h2>貸出詳細</h2>
 	<c:if test="${!requestScope.message}">
 		<c:out value="${requestScope.message}" /><br>
 		<div style="text-align: :center;color:red;font-weight:bold;">

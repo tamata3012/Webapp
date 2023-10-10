@@ -24,9 +24,20 @@
 				<td>返却予定日</td>
 				<td>${rental.returnDate}</td>
 			</tr>
+			<tr>
+				<c:if test="${rental.rentalCode==1}">
+				<td>
+					<form action="../reserve/RequestDelete.action?id=${rental.id}" method="post">
+					<input type="submit" value="申請取消">
+					</form>
+				</td>
+				</c:if>
+				<td>
+					<form action="../reserve/RentalRequest.action" method="post">
+							<input type="submit" value="戻る">
+					</form>
+				</td>
+			</tr>
 		</table>
-		<form action="../reserve/RequestDelete.action?id=${rental.id}" method="post">
-			<input type="submit" value="申請取消">
-		</form>
 
 <%@include file="reserve-footer.html" %>

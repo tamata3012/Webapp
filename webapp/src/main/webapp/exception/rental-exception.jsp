@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<h1>{$requestScope.errorMessageList}</h1>
+	<h1><c:out value="{$requestScope.errorMessageList}" /></h1>
 
 </body>
 </html>

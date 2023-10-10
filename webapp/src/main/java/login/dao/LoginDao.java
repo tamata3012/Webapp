@@ -31,8 +31,10 @@ public class LoginDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
@@ -54,8 +56,10 @@ public class LoginDao extends Dao {
 			
 			count=stmt.executeUpdate();   
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
     	return count;

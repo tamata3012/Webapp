@@ -19,7 +19,7 @@ public class ReserveDao extends Dao {
 		
 	}
 	
-	public List<Rental> select() throws Exception {
+	public List<Rental> select() throws RentalException, RentalRuntimeException {
 		
 		List<Rental> rentalList=new ArrayList<>();
 		String sql="with rental as(select rentals.*,codes.value "
@@ -51,13 +51,17 @@ public class ReserveDao extends Dao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return rentalList;
 		
 	}
 	
-	public Rental selectById(int id) throws Exception{
+	public Rental selectById(int id) throws RentalException, RentalRuntimeException {
 		
 		Rental rental=null;
 		String sql="with rental as(select rentals.*,codes.value "
@@ -91,6 +95,10 @@ public class ReserveDao extends Dao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		return rental;
 	}
@@ -129,8 +137,10 @@ public class ReserveDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		return rental;
@@ -146,7 +156,8 @@ public class ReserveDao extends Dao {
 				+ "loginuser as(select id,name from users where id=?) "
 				+ "select rental.id,rental.product_id,rental.rentalnumber,rental.rental_date,rental.return_date,rental.value,product.name,loginuser.name "
 				+ "from rental left join product on rental.product_id=product.id "
-				+ "left join loginuser on rental.user_id=loginuser.id";
+				+ "left join loginuser on rental.user_id=loginuser.id "
+				+ "order by rental.id,rental.status_code";
 		
 
 		try(Connection con=getConnection();
@@ -171,8 +182,10 @@ public class ReserveDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
@@ -213,8 +226,10 @@ public class ReserveDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
@@ -238,8 +253,10 @@ public class ReserveDao extends Dao {
         	
         	return count;
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
@@ -257,8 +274,10 @@ public class ReserveDao extends Dao {
         	
         	return count;
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
@@ -277,8 +296,10 @@ public class ReserveDao extends Dao {
 			count=stmt.executeUpdate();
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		return count;
@@ -295,8 +316,10 @@ public class ReserveDao extends Dao {
 			int count=stmt.executeUpdate();   
 			return count;
 		}catch (SQLException e) {
+			e.printStackTrace();
 			throw new RentalException("システムエラーが発生しました。");
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
