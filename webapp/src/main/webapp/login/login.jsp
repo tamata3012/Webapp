@@ -7,14 +7,11 @@
 
 	<h2>ログイン画面</h2>
 	
-	<c:if test="${requestScope.message=null}">
-		<c:out value="${requestScope.message}" />
 		<div style="text-align: :center;color:red;font-weight:bold;">
 		<c:forEach var="message" items="${requestScope.errorMessageList}">
 			<c:out value="${message}" /><br>
 		</c:forEach>
 		</div>
-	</c:if>
 	
 	<a href="login-register.jsp">ユーザ新規登録</a>
 	

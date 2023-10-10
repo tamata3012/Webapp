@@ -22,8 +22,16 @@
 				<td>${product.name}</td>
 			</tr>
 			<tr>
+				<td>貸出品総数</td>
+				<td>${product.number}</td>
+			</tr>
+			<tr>
+				<td>貸出数</td>
+				<td>${product.number-product.rentalNumber}</td>
+			</tr>
+			<tr>
 				<td>貸出可能数</td>
-				<td><input type="number" name="rentalnumber" value="${product.rentalNumber}"></td>
+				<td><input type="number" name="rentalnumber" min="${product.number-product.rentalNumber}" value="${product.rentalNumber}"></td>
 			</tr>
 		</table>
 		<input type="submit" value="変更">

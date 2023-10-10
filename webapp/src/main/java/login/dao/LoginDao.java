@@ -7,10 +7,12 @@ import java.sql.SQLException;
 
 import login.User;
 import tool.Dao;
+import tool.RentalException;
+import tool.RentalRuntimeException;
 
 public class LoginDao extends Dao {
 
-	public User search(String name,String password) throws Exception {
+	public User search(String name,String password) throws RentalException, RentalRuntimeException {
 		
 		User user=null;
 		String sql="select * from users where name=? and password=?";
@@ -29,17 +31,19 @@ public class LoginDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return user;
 		
 	}
 	
-	public int register(String name,String password,String phoneNumber) throws SQLException, Exception {
+	public int register(String name,String password,String phoneNumber) throws RentalException, RentalRuntimeException{
 		
 		String sql="insert into users(name,password,phonenumber) values(?,?,?)";
+		int count;
 		
 		try(Connection con=getConnection();
 				PreparedStatement stmt=con.prepareStatement(sql)){
@@ -48,9 +52,12 @@ public class LoginDao extends Dao {
 			stmt.setString(2,password);
 			stmt.setString(3, phoneNumber);
 			
-			int count=stmt.executeUpdate();   
-        	
-        	return count;
+			count=stmt.executeUpdate();   
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
+    	return count;
 	}
 }

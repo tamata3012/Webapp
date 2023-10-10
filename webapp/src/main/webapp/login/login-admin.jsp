@@ -6,15 +6,14 @@
 <%@include file="login-header.html" %>
 
 	<h2>管理者用ログイン画面</h2>
+
+	<c:out value="${requestScope.message}" />
+	<div style="text-align: :center;color:red;font-weight:bold;">
+	<c:forEach var="message" items="${requestScope.errorMessageList}">
+		<c:out value="${message}" /><br>
+	</c:forEach>
+	</div>
 	
-	<c:if test="${requestScope.message=null}">
-		<c:out value="${requestScope.message}" />
-		<div style="text-align: :center;color:red;font-weight:bold;">
-		<c:forEach var="message" items="${requestScope.errorMessageList}">
-			<c:out value="${message}" /><br>
-		</c:forEach>
-		</div>
-	</c:if>
 	<form action="../login/LoginAdmin.action" method="post">
 		<div>
 			ユーザ名:<input type="text" name="adminname"><br>

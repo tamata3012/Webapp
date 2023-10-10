@@ -10,6 +10,8 @@ import java.util.List;
 
 import reserve.Rental;
 import tool.Dao;
+import tool.RentalException;
+import tool.RentalRuntimeException;
 
 public class ReserveDao extends Dao {
 
@@ -93,7 +95,7 @@ public class ReserveDao extends Dao {
 		return rental;
 	}
 	
-	public Rental selectByReturn(int id) throws Exception{
+	public Rental selectByReturn(int id) throws RentalException, RentalRuntimeException {
 		
 		Rental rental=null;
 		String sql="with rental as(select rentals.*,codes.value "
@@ -127,13 +129,15 @@ public class ReserveDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		return rental;
 	}
 	
 	
-	public List<Rental> selectByUserId(int id) throws Exception {
+	public List<Rental> selectByUserId(int id) throws RentalException, RentalRuntimeException {
 		
 		List<Rental> rentalList=new ArrayList<>();
 		String sql="with rental as(select rentals.*,codes.value "
@@ -167,14 +171,16 @@ public class ReserveDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return rentalList;
 		
 	}
 	
-	public List<Rental> selectReturn() throws Exception {
+	public List<Rental> selectReturn() throws RentalException, RentalRuntimeException {
 		
 		List<Rental> returnList=new ArrayList<>();
 		String sql="with rental as(select rentals.*,codes.value "
@@ -207,14 +213,16 @@ public class ReserveDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return returnList;
 	}
 		
 
-	public int register(int id,int number,int userId,String returnDate) throws Exception {
+	public int register(int id,int number,int userId,String returnDate) throws RentalException, RentalRuntimeException {
 		
 		String sql="insert into rentals(product_id,rentalnumber,rental_date,return_date,status_code,user_id) values(?,?,current_date,?,1,?)";
 		
@@ -229,10 +237,14 @@ public class ReserveDao extends Dao {
 			int count=stmt.executeUpdate();   
         	
         	return count;
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
 	
-	public int registerReturn(int id) throws Exception {
+	public int registerReturn(int id) throws RentalException, RentalRuntimeException {
 		
 		String sql="insert into rental_return(rental_id,return_date) values(?,current_date)";
 		
@@ -244,10 +256,14 @@ public class ReserveDao extends Dao {
 			int count=stmt.executeUpdate();
         	
         	return count;
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
 	
-	public int updateStatus(int id,int status){
+	public int updateStatus(int id,int status) throws RentalException, RentalRuntimeException{
 		
 		String sql="update rentals set status_code=? where id=?";
 		int count=0;
@@ -261,16 +277,14 @@ public class ReserveDao extends Dao {
 			count=stmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
 		} catch (Exception e1) {
-			// TODO 自動生成された catch ブロック
-			e1.printStackTrace();
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		return count;
 	}
 	
-	public int delete(int id) throws Exception {
+	public int delete(int id) throws RentalException, RentalRuntimeException {
 		String sql="delete from rentals where id=?";
 		
 		try(Connection con=getConnection();
@@ -280,6 +294,10 @@ public class ReserveDao extends Dao {
 			
 			int count=stmt.executeUpdate();   
 			return count;
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
 }

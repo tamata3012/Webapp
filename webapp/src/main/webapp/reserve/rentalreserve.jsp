@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>申請数</td>
-				<td><input type="number" name="rentalnumber"></td>
+				<td><input type="number" min="0" name="rentalnumber"></td>
 			</tr>
 			<tr>
 				<td>返却予定日</td>

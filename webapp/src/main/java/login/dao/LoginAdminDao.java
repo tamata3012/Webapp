@@ -7,10 +7,12 @@ import java.sql.SQLException;
 
 import admin.Admin;
 import tool.Dao;
+import tool.RentalException;
+import tool.RentalRuntimeException;
 
 public class LoginAdminDao extends Dao {
 
-public Admin search(String name,String password) throws Exception {
+public Admin search(String name,String password) throws RentalException, RentalRuntimeException{
 		
 		Admin admin=new Admin();
 		String sql="select name,password from admin where name=? and password=?";
@@ -27,8 +29,9 @@ public Admin search(String name,String password) throws Exception {
 			}
 			
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return admin;

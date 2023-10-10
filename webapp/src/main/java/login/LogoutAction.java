@@ -13,7 +13,6 @@ public class LogoutAction extends Action{
 	@Override
 	public String excute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
 		HttpSession session=request.getSession();
 		
 		if(session.getAttribute("admin")!=null||session.getAttribute("user")!=null) {

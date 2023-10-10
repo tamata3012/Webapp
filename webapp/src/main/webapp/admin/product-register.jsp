@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td>個数</td>
-				<td><input type="number" name="rentalNumber"></td>
+				<td><input type="number" min="0" name="rentalNumber"></td>
 			</tr>
 		</table>
 		<input type="submit" value="追加">

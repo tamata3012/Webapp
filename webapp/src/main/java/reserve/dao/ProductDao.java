@@ -9,10 +9,12 @@ import java.util.List;
 
 import reserve.Product;
 import tool.Dao;
+import tool.RentalException;
+import tool.RentalRuntimeException;
 
 public class ProductDao extends Dao {
 
-	public List<Product> select(String keyword) throws Exception {
+	public List<Product> select(String keyword) throws RentalException, RentalRuntimeException {
 		
 		List<Product> productList=new ArrayList<>();
 		String sql="select * from products where name like ? ORDER BY id";
@@ -34,13 +36,15 @@ public class ProductDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return productList;
 	}
 	
-	public Product selectByName(String name) throws Exception {
+	public Product selectByName(String name) throws RentalException, RentalRuntimeException {
 		
 		Product product=null;
 		String sql="select name from products where name=?";
@@ -57,13 +61,15 @@ public class ProductDao extends Dao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 		
 		return product;
 }
 		
-	public Product selectById(int id) throws Exception {
+	public Product selectById(int id) throws RentalException, RentalRuntimeException{
 			
 			Product product=null;
 			String sql="select * from products where id=?";
@@ -83,13 +89,14 @@ public class ProductDao extends Dao {
 				}
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new RentalException("システムエラーが発生しました。");
+			} catch (Exception e1) {
+				throw new RentalRuntimeException("エラーが発生しました。");
 			}
-			
 			return product;
 	}
 	
-	public void register(String name,int number) {
+	public void register(String name,int number) throws RentalException, RentalRuntimeException {
 		
 		String sql="insert into products(name,number,rental_number) values(?,?,?)";
 		
@@ -100,27 +107,32 @@ public class ProductDao extends Dao {
 			stmt.setInt(2, number);
 			stmt.setInt(3, number);
 			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
 	
-	public int updateNumber(int id,int rentalnumber) throws SQLException, Exception {
+	public int updateNumber(int id,int rentalnumber) throws RentalException, RentalRuntimeException {
+		
 		String sql="update products set rental_number=?,number=number+?-rental_number where id = ? ";
+		int count;
 		try(Connection con=getConnection();
 				PreparedStatement stmt =con.prepareStatement(sql)){	
 			stmt.setInt(1, rentalnumber);
 			stmt.setInt(2, rentalnumber);
 			stmt.setInt(3, id);
-			int count=stmt.executeUpdate();
-			
-			return count;
+			count=stmt.executeUpdate();
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
+		return count;
 	}
 	
-	public void changeNumber(int id,int rentalnum) throws Exception {
+	public void changeNumber(int id,int rentalnum) throws RentalException, RentalRuntimeException{
 		
 		String sql="update products set rental_number=rental_number+? where id=?";
 		
@@ -130,6 +142,10 @@ public class ProductDao extends Dao {
 			stmt.setInt(1, rentalnum);
 			stmt.setInt(2, id);
 			stmt.executeUpdate(); 
+		}catch (SQLException e) {
+			throw new RentalException("システムエラーが発生しました。");
+		} catch (Exception e1) {
+			throw new RentalRuntimeException("エラーが発生しました。");
 		}
 	}
 }
